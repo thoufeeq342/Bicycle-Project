@@ -1,0 +1,195 @@
+<div class="customer-support">
+    <button class="support-toggle" style="background-color:transparent;border:none;color:#000;"><?php echo __('Social Contact'); ?></button>
+    <ul class="support-dropdown">
+        <li>
+            <a class="whatsapp" href="https://wa.me/123456789" target="_blank" rel="noopener noreferrer">
+                <img src="<?php echo $this->getViewFileUrl('images/whatsapp.png'); ?>" alt="WhatsApp" width="25" height="25" style="display: inline-block;text-align: center"/>
+                <?php echo __('WhatsApp'); ?>
+            </a>
+        </li>
+        <li>
+            <a class="email" href="https://mail.google.com" target="_blank" rel="noopener noreferrer">
+                <img src="<?php echo $this->getViewFileUrl('images/email.png'); ?>" alt="Email" width="25" height="25" />
+                <?php echo __('Email'); ?>
+            </a>
+        </li>
+        <li>
+            <a class="facebook" href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
+                <img src="<?php echo $this->getViewFileUrl('images/facebook.png'); ?>" alt="Facebook" width="25" height="25" />
+                <?php echo __('Facebook'); ?>
+            </a>
+        </li>
+        <li>
+            <a class="instagram" href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+                <img src="<?php echo $this->getViewFileUrl('images/instagram.png'); ?>" alt="Instagram" width="25" height="25" />
+                <?php echo __('Instagram'); ?>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+<style>
+   /* Button styles */
+.support-toggle {
+    background-color: #555;
+    color: #fff; /* Changed to white for better contrast */
+    padding: 10px 20px; /* Slightly increased horizontal padding */
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    border-radius: 5px; /* Added border radius for smoother appearance */
+}
+
+.customer-support {
+    position: relative;
+    display: inline-block;
+}
+
+.support-dropdown {
+    display: none;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    text-align: center;
+    background-color: #f9f9f9;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    overflow: hidden;
+    z-index: 1000;
+    width: 150px; /* Ensures dropdown width consistency */
+    padding: 0;
+}
+
+.support-dropdown li {
+    list-style: none;
+    padding: 10px 15px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.support-dropdown a {
+    text-decoration: none;
+    color: #000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.support-dropdown a:hover {
+    background-color: #eee;
+    color: #000;
+    border-radius: 5px;
+}
+
+.support-dropdown img {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* Dropdown display on hover */
+.customer-support:hover .support-dropdown {
+    display: block;
+}
+
+
+</style>
+
+
+
+<!-- Popup Box -->
+<div id="popup-box" class="popup-box">
+    <div class="popup-header">
+        <h3>SHIPPING WORLDWIDE</h3>
+        <span class="close-btn" onclick="closePopup()">×</span>
+    </div>
+    <div class="popup-content">
+        <p>We ship all over the world and the products are completely insured and shipped through reputed courier companies. For more information visit International Shipping.</p>
+    </div>
+</div>
+<button onclick="openPopup()" style="background-color:transparent;border:none;color:#000;"><img src="<?php echo $this->getViewFileUrl('images/shipping.png'); ?>" alt="shipping" width="25" height="10" />Shipping WorldWide</button>
+
+<style>
+
+    /* Popup Box Styling */
+    .popup-box {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 500px;
+        background-color: #ffffff;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        font-family: Arial, sans-serif;
+        display: none; /* Hide initially */
+    }
+
+    .popup-header {
+        background-color: #555; /* Header color */
+        color: #ffffff;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+    }
+
+    .popup-header h3 {
+        margin: 0;
+        font-size: 18px;
+    }
+
+    .close-btn {
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .popup-content {
+        padding: 20px;
+        color: #333333;
+        font-size: 14px;
+        text-align: center;
+        line-height: 1.5;
+    }
+
+    /* Optional: Overlay */
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4);
+        z-index: 999;
+        display: none; /* Hide overlay initially */
+    }
+
+    body.popup-active::before {
+        display: block; /* Show overlay when popup is active */
+    }
+</style>
+
+<script>
+    function openPopup() {
+        document.getElementById('popup-box').style.display = 'block';
+        document.body.classList.add('popup-active');
+    }
+
+    function closePopup() {
+        document.getElementById('popup-box').style.display = 'none';
+        document.body.classList.remove('popup-active');
+    }
+</script>
+
+
+
+

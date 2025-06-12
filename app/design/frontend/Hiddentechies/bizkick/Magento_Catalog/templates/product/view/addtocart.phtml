@@ -1,0 +1,157 @@
+<?php
+
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var $block \Magento\Catalog\Block\Product\View */
+?>
+<?php $_product = $block->getProduct(); ?>
+<?php $buttonTitle = __('Add to Cart'); ?>
+<?php if ($_product->isSaleable()): ?>
+    <div class="box-tocart">
+        <div class="fieldset">
+            <?php if ($block->shouldRenderQuantity()): ?>
+                <div class="field qty">
+                    <label class="label" for="qty"><span><?php /* @escapeNotVerified */ echo __('Qty') ?></span></label>
+                    <div class="control">
+                        <input type="number"
+                            name="qty"
+                            id="qty"
+                            maxlength="12"
+                            value="<?php /* @escapeNotVerified */ echo $block->getProductDefaultQty() * 1 ?>"
+                            title="<?php /* @escapeNotVerified */ echo __('Qty') ?>" class="qty-default input-text qty"
+                            data-validate="<?php echo $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>" />
+                        <span class="qty-main">
+                            <span class="qty-btn qty-inc"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                            <span class="qty-btn qty-dec"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                        </span>
+                        <script type="text/javascript">
+                            require(['jquery'], function() {
+                                jQuery(document).ready(function() {
+                                    jQuery('.qty-inc').click(function() {
+                                        jQuery('.qty-default').val(Number(jQuery('.qty-default').val()) + 1);
+                                    });
+
+                                    jQuery('.qty-dec').click(function() {
+                                        var value = Number(jQuery('.qty-default').val()) - 1;
+                                        if (value > 0) {
+                                            jQuery('.qty-default').val(value);
+                                        }
+                                    });
+                                });
+                            });
+                        </script>
+                    </div>
+                </div>
+            <?php endif; ?>
+            <div class="actions">
+                <button type="submit"
+                    title="<?php /* @escapeNotVerified */ echo $buttonTitle ?>"
+                    class="action primary tocart"
+                    id="product-addtocart-button"
+                    onclick="addToCart()">
+                    <span><?php /* @escapeNotVerified */ echo $buttonTitle ?></span>
+                </button>
+                <?php echo $block->getChildHtml('', true) ?>
+                <div>
+                    <form id="deliveryForm">
+                        <input type="date" id="deliveryDate" required>
+                    </form>
+                    <script>
+                        function addToCart() {
+                            // Get the selected delivery date
+                            const deliveryDateInput = document.getElementById('deliveryDate').value;
+                            if (deliveryDateInput) {
+                                // Format the delivery date to a readable format
+                                const deliveryDate = new Date(deliveryDateInput);
+                                const options = {
+                                    year: 'numeric',
+                                    month: 'long',
+                                    day: 'numeric'
+                                };
+                                const formattedDate = deliveryDate.toLocaleDateString(undefined, options)
+                                // Display the alert with the delivery date
+                                alert(`Your item will be delivered by ${formattedDate}.`);
+                            } else {
+                                // Alert if no date is selected
+                                alert('Please select a delivery date.');
+                            }
+                        }
+                    </script>
+                </div>
+            </div>
+            <!-- Include Font Awesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+<div class="order-on-whatsapp">
+  <button type="button" id="btn-whatsapp" class="btn-whatsapp">
+    <i class="fab fa-whatsapp"></i> Order by WhatsApp
+  </button>
+</div>
+
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function () {
+    // Safely access product details
+    var productNameElement = document.querySelector('h1.page-title span');
+    var productSkuElement = document.querySelector('.product.attribute.sku .value');
+    var productPriceElement = document.querySelector('.price-wrapper .price');
+    
+    var productName = productNameElement ? productNameElement.innerText : 'Unknown Product';
+    var productSku = productSkuElement ? productSkuElement.innerText : 'Unknown SKU';
+    var productPrice = productPriceElement ? productPriceElement.innerText : 'Unknown Price';
+    var productUrl = window.location.href;
+
+    // Construct WhatsApp link
+    var whatsappLink = 'https://wa.me/1234567890?text=' +
+      encodeURIComponent('Hello, I would like to order this product: ' + productName + ' (SKU: ' + productSku + ') for ' + productPrice + '. Here is the link: ' + productUrl);
+
+    // Add click event listener to button
+    var whatsappButton = document.getElementById('btn-whatsapp');
+    if (whatsappButton) {
+      whatsappButton.onclick = function () {
+        window.open(whatsappLink, '_blank');
+      };
+    }
+  });
+</script>
+
+<style>
+  .btn-whatsapp {
+    border-radius: 20px;
+    background-color: #5dc85a;
+    color: #ffffff;
+    font-weight: 800;
+    margin-left: 95px;
+    margin-top: 10px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .btn-whatsapp i {
+    font-size: 18px;
+  }
+
+  .btn-whatsapp:hover {
+    background-color: #55b72e;
+    color: #ffffff;
+  }
+</style>
+
+        </div>
+    </div>
+<?php endif; ?>
+<script type="text/x-magento-init">
+    {
+        "#product_addtocart_form": {
+            "Magento_Catalog/js/validate-product": {}
+        }
+    }
+</script>

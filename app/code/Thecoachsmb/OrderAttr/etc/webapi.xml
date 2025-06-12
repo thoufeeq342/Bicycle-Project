@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <route url="/V1/orders/update-platform" method="POST">
+        <service class="Thecoachsmb\OrderAttr\Api\OrderPlatformManagementInterface" method="updatePlatform" />
+        <resources>
+            <resource ref="Magento_Sales::sales" />
+        </resources>
+    </route>
+</routes>

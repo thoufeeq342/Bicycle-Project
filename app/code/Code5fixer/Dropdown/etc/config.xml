@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Config/etc/config.xsd">
+    <default>
+        <Dropdown>
+            <general>
+                <enable>1</enable> <!-- Default enabled -->
+                <display_text> Web Development</display_text> <!-- Default dropdown value -->
+            </general>
+        </Dropdown>
+    </default>
+</config>

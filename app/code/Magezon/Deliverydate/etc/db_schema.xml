@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    
+    <table name="quote" resource="checkout">
+        <column name="delivery_date" xsi:type="date" nullable="false" comment="Delivery Date"/>
+        <column name="additional_phone_number" xsi:type="varchar" length="15" nullable="true" comment="Additional Phone Number"/>
+    </table>
+    
+    <table name="sales_order" resource="sales">
+        <column name="delivery_date" xsi:type="date" nullable="false" comment="Delivery Date"/>
+        <column name="additional_phone_number" xsi:type="varchar" length="15" nullable="true" comment="Additional Phone Number"/>
+    </table>
+
+    <table name="sales_order_grid" resource="sales">
+        <column name="delivery_date" xsi:type="date" nullable="false" comment="Delivery Date"/>
+        <column name="additional_phone_number" xsi:type="varchar" length="15" nullable="true" comment="Additional Phone Number"/>
+    </table>
+
+</schema>

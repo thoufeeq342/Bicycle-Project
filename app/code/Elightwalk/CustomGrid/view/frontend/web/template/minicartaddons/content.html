@@ -1,0 +1,24 @@
+<div class="component-wrapper" data-bind="if: getTotalCartItems() > 0">
+    <h4 data-bind="text: getpercentage() < 100 ? 'Free shipping' : 'Eligible for free shipping!'"></h4>
+    <span data-bind="html: cart().subtotal"></span><span> / </span><span data-bind="text: maxprice"></span>
+
+    <div class="minprogress" id="progress">
+        <div class="minprogress-active" id="child-progress" data-bind="style: { width: getpercentage() + '%' }"></div>
+    </div>
+</div>
+
+<style>
+div.minprogress {
+    border: 1px solid #a5a5a5;
+    height: 10px;
+    border-radius: 5px;
+    position: relative;
+
+    .minprogress-active {
+        position: absolute;
+        background-color: #000000;
+        height: 10px;
+        border-radius: 5px;
+    }
+}
+</style>

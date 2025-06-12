@@ -1,0 +1,38 @@
+<div class="admin__table-wrapper">
+    <table class="data-table admin__table-primary order-invoice-tables">
+        <thead>
+            <tr class="headings">
+                <th class="col-product"><span><?= $block->escapeHtml(__('Product')) ?></span></th>
+                <th class="col-price"><span><?= $block->escapeHtml(__('Price')) ?></span></th>
+                <th class="col-qty"><span><?= $block->escapeHtml(__('Qty')) ?></span></th>
+                <th class="col-subtotal"><span><?= $block->escapeHtml(__('Subtotal')) ?></span></th>
+                <th class="col-tax"><span><?= $block->escapeHtml(__('Tax Amount')) ?></span></th>
+                <th class="col-discount"><span><?= $block->escapeHtml(__('Discount Amount')) ?></span></th>
+                <th class="col-total"><span><?= $block->escapeHtml(__('Row Total')) ?></span></th>
+                <th class="col-phone"><span><?= $block->escapeHtml(__('Phone Number')) ?></span></th>
+                <th class="col-custom"><span><?= $block->escapeHtml(__('Custom Data')) ?></span></th>
+            </tr>
+        </thead>
+        <?php $_items = $block->getInvoice()->getAllItems() ?>
+        <?php $i = 0; foreach ($_items as $_item) : ?>
+            <?php if ($_item->getOrderItem()->getParentItem()) :
+                continue;
+            else :
+                $i++;
+            endif; ?>
+            <tbody class="<?= /* @noEscape */ $i%2 ? 'even' : 'odd' ?>">
+                <?= $block->getItemHtml($_item) ?>
+                <?= $block->getItemExtraInfoHtml($_item->getOrderItem()) ?>
+                <tr>
+                    <td colspan="7"></td>
+                    <td class="col-phone">
+                        <?= $block->escapeHtml($_item->getOrderItem()->getOrder()->getBillingAddress()->getTelephone()) ?>
+                    </td>
+                    <td class="col-custom">
+                        <?= $block->escapeHtml($block->getCustomAttribute($_item)) ?>
+                    </td>
+                </tr>
+            </tbody>
+        <?php endforeach; ?>
+    </table>
+</div>

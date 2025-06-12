@@ -1,0 +1,21 @@
+# Magento 2 specific files and directories to ignore
+/app/etc/env.php
+/app/etc/config.php
+/var/*
+!/var/.htaccess
+/generated/*
+!/generated/.htaccess
+/pub/media/*
+!/pub/media/.htaccess
+/pub/static/*
+!/pub/static/.htaccess
+/vendor/*
+/dev/tests/*
+/node_modules/
+/.idea/
+/.DS_Store
+*.log
+*.zip
+*.tar.gz
+*.swp
+

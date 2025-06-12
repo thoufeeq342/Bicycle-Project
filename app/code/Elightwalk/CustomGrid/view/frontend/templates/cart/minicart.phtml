@@ -1,0 +1,74 @@
+<div id="cart-page">
+    <div id="block-cart-list" data-bind="scope:'minicart-addons'" class="block">
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <script type="text/x-magento-init">
+        {
+            "#block-cart-list": {
+                "Magento_Ui/js/core/app": <?php /* @escapeNotVerified */ echo $block->getJsLayout(); ?>
+            },
+            "*": {
+                "Magento_Ui/js/block-loader": "<?= /* @escapeNotVerified */ $block->getViewFileUrl('images/loader-1.gif') ?>"
+            }
+        }
+        </script>
+    </div>
+</div>
+
+
+<script>
+    var maxpriceShipping = <?= /* @escapeNotVerified */ $this->getConfigForShippingBar(); ?>;
+</script>
+
+
+<div id="cart-page">
+    <div id="block-cart-list" data-bind="scope:'minicart-addons'" class="block">
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        
+        <script>
+            var maxpriceShipping = <?= /* @escapeNotVerified */ $this->getConfigForShippingBar(); ?>;
+        </script>
+        
+        <script type="text/x-magento-init">
+        {
+            "#block-cart-list": {
+                "Magento_Ui/js/core/app": <?php /* @escapeNotVerified */ echo $block->getJsLayout(); ?>
+            },
+            "*": {
+                "Magento_Ui/js/block-loader": "<?= /* @escapeNotVerified */ $block->getViewFileUrl('images/loader-1.gif') ?>"
+            }
+        }
+        </script>
+    </div>
+<div class="shop-btn">
+<a href="http://magentodemo.com/">
+    <button class="shop">Continue to shopping</button>
+  </a>
+  <a href="http://magentodemo.com/checkout/cart/">
+    <button class="shop">Go to cart</button>
+  </a>
+</div>
+</div>
+
+<style>
+.shop-btn {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .shop-btn a {
+    text-decoration: none;
+  }
+  .shop {
+    padding: 10px 20px;
+    background-color: #000; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+  }
+  .shop:hover {
+    background-color: #d50404; 
+    color: white;
+  }
+</style>

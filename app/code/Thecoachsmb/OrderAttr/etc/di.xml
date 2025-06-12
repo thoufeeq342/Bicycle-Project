@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <!-- Binding the interface to the implementation -->
+    <type name="Thecoachsmb\OrderAttr\Api\OrderPlatformManagementInterface">
+        <arguments>
+            <argument name="class" xsi:type="string">Thecoachsmb\OrderAttr\Model\OrderPlatformManagement</argument>
+        </arguments>
+    </type>
+
+    <!-- Sync the sales_order table and sales_order_grid -->
+    <virtualType name="Magento\Sales\Model\ResourceModel\Order\Grid" type="Magento\Sales\Model\ResourceModel\Grid">
+        <arguments>
+            <argument name="columns" xsi:type="array">
+                <item name="order_platform" xsi:type="string">sales_order.order_platform</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+</config>

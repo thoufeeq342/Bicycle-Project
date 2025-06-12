@@ -1,0 +1,154 @@
+<?php
+
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+
+/** @var $block \Magento\Catalog\Block\Product\View */
+?>
+<?php $_product = $block->getProduct();
+$bizkickHelper = $this->helper('Hiddentechies\Bizkick\Helper\Data');
+$showNewLabel = $bizkickHelper->getConfigValue('bizkicksettings/product_settings/show_new_label');
+$showSaleLabel = $bizkickHelper->getConfigValue('bizkicksettings/product_settings/show_sale_label');
+?>
+
+<?php
+// Get the product object
+$_product = $block->getProduct();
+
+// Check if the product is new (created within the last 30 days)
+$createdAt = strtotime($_product->getCreatedAt());
+$now = time();
+$isNewProduct = ($now - $createdAt) <= (30 * 24 * 60 * 60); // 30 days in seconds
+
+// Check if the product is on sale
+$specialPrice = $_product->getSpecialPrice();
+$regularPrice = $_product->getPrice();
+$isOnSale = $specialPrice && $specialPrice < $regularPrice;
+?>
+<?php
+
+$creationDate = $_product->getCreatedAt(); // Replace $_product with your product object
+$currentDate = date("Y-m-d"); // Current date in 'Y-m-d' format
+
+try {
+    // Convert the creation and current dates to DateTime objects
+    $datetime1 = new DateTime($creationDate);
+    $datetime2 = new DateTime($currentDate);
+
+    // Calculate the difference in days
+    $interval = $datetime1->diff($datetime2);
+    $daysDifference = $interval->days;
+
+    // Check if the product is new (within 30 days)
+    if ($daysDifference <= 30 && $datetime1 <= $datetime2) {
+        echo '<h4 class="new-product-label" style="color:white;">new</h4>';
+    }
+} catch (Exception $e) {
+    // Handle invalid date format errors
+    echo '<p>Invalid creation date format for this product.</p>';
+}
+?>
+
+<style>
+    .new-product-label {
+        color: white;
+        background-color: black;
+        padding: 5px 10px;
+        border-radius: 50px;
+        position: absolute; 
+        top: 10px; 
+        left: 10%; 
+        transform: translateX(-50%); 
+        z-index: 10; 
+        font-size: 12px; 
+        text-align: center;
+        white-space: nowrap; 
+    }
+</style>
+<?php
+$discountAttributeCode = 'Discount';
+$hasDiscountAttribute = $_product->getResource()->getAttribute($discountAttributeCode) !== null;
+$discountAttributeValue = $hasDiscountAttribute ? $_product->getAttributeText($discountAttributeCode) : '';
+?>
+<?php
+if ($discountAttributeValue == 'Flat 40%') {
+?>
+    <button class="discount-label-tag">
+        <?php echo "Flat 40%off"; ?>
+    </button>
+<?php
+} elseif ($discountAttributeValue == 'Flat 50%') {
+?>
+    <button class="discount-label-tag">
+        <?php echo "Flat 50%off"; ?>
+    </button>
+<?php
+}
+?>
+<style>
+    .discount-label-tag {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: #d50404;
+        /* Background color */
+        color: #ffffff;
+        /* Text color */
+        padding: 5px 10px;
+        font-size: 12px;
+        /* Small text size */
+        font-weight: bold;
+        border-radius: 4px;
+        z-index: 1;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        text-transform: uppercase;
+        line-height: 1.2;
+    }
+</style>
+<div class="product-labels">
+
+    <?php
+    if ($showNewLabel == 1) {
+        $fromDate = $_product->getNewsFromDate();
+        $toDate = $_product->getNewsToDate();
+
+        if (isset($fromDate) && isset($toDate)) {
+            $fromDate = strtotime($fromDate);
+            $toDate = strtotime($toDate);
+            $now = strtotime(date("Y-m-d h:m:s"));
+
+            if ($fromDate <= $now && $now <= $toDate) {
+    ?>
+                <span class="new-label"><?php echo __('New'); ?></span>
+                <?php
+            }
+        }
+    }
+
+    if ($showSaleLabel == 1) {
+        $special_price = number_format($_product->getSpecialPrice(), 2);
+        $regular_price = number_format($_product->getPrice(), 2);
+        if (isset($special_price) && $special_price > 0) {
+            if ($special_price < $regular_price) {
+                $fromSpecialDate = $_product->getSpecialFromDate();
+                $toSpecialDate = $_product->getSpecialToDate();
+
+                if (isset($fromSpecialDate) && isset($toSpecialDate)) {
+                    $fromSpecialDate = strtotime($fromSpecialDate);
+                    $toSpecialDate = strtotime($toSpecialDate);
+                    $now = strtotime(date("Y-m-d h:m:s"));
+
+                    if ($fromSpecialDate <= $now && $now <= $toSpecialDate) {
+                ?>
+                        <span class="sale-label"><?php echo __('Sale'); ?></span>
+    <?php
+                    }
+                }
+            }
+        }
+    }
+    ?>
+</div>
